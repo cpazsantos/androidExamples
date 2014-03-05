@@ -49,11 +49,12 @@ public class ToDoManagerActivity extends ListActivity {
 		// Put divider between ToDoItems and FooterView
 		getListView().setFooterDividersEnabled(true);
 
-		//TODO - Inflate footerView for footer_view.xml file
+        //TO DO Inflate footerView for footer_view.xml file
+        LayoutInflater inflater = this.getLayoutInflater();
+        TextView footerView = (TextView) inflater.inflate(R.layout.footer_view, null);
 
-		TextView footerView = null;
-
-		//TODO - Add footerView to ListView
+        //TO DO Add footerView to ListView
+        getListView().addFooterView(footerView);
 
 		footerView.setOnClickListener(new OnClickListener() {
 			@Override
@@ -61,13 +62,15 @@ public class ToDoManagerActivity extends ListActivity {
 
 				log("Entered footerView.OnClickListener.onClick()");
 
-				//TODO - Attach Listener to FooterView. Implement onClick().
-
+                //TO DO Attach Listener to FooterView. Implement onClick().
+                Intent addToDoIntent = new Intent(ToDoManagerActivity.this,
+                        AddToDoActivity.class);
+                startActivityForResult(addToDoIntent, ADD_TODO_ITEM_REQUEST);
 			}
 		});
 
-		//TODO - Attach the adapter to this ListActivity's ListView
-
+        //TO DO Attach the adapter to this ListActivity's ListView
+        getListView().setAdapter(mAdapter);
 	}
 
 	@Override
@@ -75,11 +78,16 @@ public class ToDoManagerActivity extends ListActivity {
 
 		log("Entered onActivityResult()");
 
-		// TODO - Check result code and request code.
+		// TO DO - Check result code and request code.
 		// If user submitted a new ToDoItem
 		// Create a new ToDoItem from the data Intent
 		// and then add it to the adapter
-
+        if (requestCode == ADD_TODO_ITEM_REQUEST ){
+            if (resultCode == RESULT_OK){
+                ToDoItem toDoItem = new ToDoItem(data);
+                mAdapter.add(toDoItem);
+            }
+        }
 	}
 
 	// Do not modify below here
@@ -99,9 +107,7 @@ public class ToDoManagerActivity extends ListActivity {
 		super.onPause();
 
 		// Save ToDoItems
-
 		saveItems();
-
 	}
 
 	@Override
