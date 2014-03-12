@@ -25,7 +25,7 @@ public class BubbleActivityFling extends ActivityInstrumentationTestCase2<Bubble
   
 	public void testRun() {
 		// Wait for activity: 'course.labs.TouchLab.BubbleActivity'
-		solo.waitForActivity(course.labs.GraphicsLab.BubbleActivity.class, 2000);
+		solo.waitForActivity(course.labs.GraphicsLab.BubbleActivity.class, 5000);
 
 		solo.sleep(1000);
 
@@ -42,6 +42,6 @@ public class BubbleActivityFling extends ActivityInstrumentationTestCase2<Bubble
 		// Fling
 		solo.drag(100, 500, 100, 500, 3);
 		
-		solo.sleep(2000);
+		solo.sleep(5000);
 	}
 }
